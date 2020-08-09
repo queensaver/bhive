@@ -36,7 +36,7 @@ func (w *ChannelWriter) Update() (resp *http.Response, err error) {
 		return nil, err
 	}
 
+	r.Header.Set("Content-type", "application/json")
 	resp, err = client.Do(r)
-
-	return resp, nil
+	return resp, err
 }

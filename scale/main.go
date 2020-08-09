@@ -42,10 +42,9 @@ func main() {
 	fmt.Println(movingAvg)
 	thing := thingspeak_client.NewChannelWriter(*thingspeakKey)
 	thing.AddField(1, fmt.Sprintf("%f", movingAvg))
-	r, err := thing.Update()
+	_, err = thing.Update()
 	if err != nil {
 		fmt.Println("ThingSpeak error:", err)
 	}
-	fmt.Println(r)
 
 }
