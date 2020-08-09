@@ -26,8 +26,8 @@ func main() {
 	var weight1 float64
 	var weight2 float64
 
-	weight1 = 100
-	weight2 = 200
+	weight1 = 2896
+	weight2 = 1510
 
 	hx711.GetAdjustValues(weight1, weight2)
 }
