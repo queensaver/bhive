@@ -2,9 +2,13 @@ package main
 
 import (
 	"fmt"
+	"flag"
 
 	"github.com/MichaelS11/go-hx711"
+	"github.com/wogri/bhive/scale/thingspeak_client"
 )
+
+var thingspeakKey = flag.String("thingspeak_api_key", "48PCU5CAQ0BSP4CL", "API key for Thingspeak")
 
 func main() {
 	err := hx711.HostInit()
@@ -36,6 +40,12 @@ func main() {
 
 	// moving average
 	fmt.Println(movingAvg)
-	// fmt.Println(previousReadings)
+	thing := thingspeak_client.NewChannelWriter(*thingspeakKey)
+	thing.AddField(1, fmt.Sprintf("%f", movingAvg))
+	r, err := thing.Update()
+	if err != nil {
+		fmt.Println("ThingSpeak error:", err)
+	}
+	fmt.Println(r)
 
 }
