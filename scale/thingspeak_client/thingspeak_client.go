@@ -7,26 +7,22 @@ import (
 )
 
 type ChannelWriter struct {
-	key    string
-	fields map[int]string
+  Key    string `json:"key"`
+	Field1 float64 `json:"field1"`
 }
 
 func NewChannelWriter(key string) *ChannelWriter {
 	w := new(ChannelWriter)
-	w.key = key
-	w.fields = make(map[int]string)
+	w.Key = key
 	return w
 }
 
-func (w *ChannelWriter) AddField(n int, value string) {
-	w.fields[n] = value
+func (w *ChannelWriter) AddField(n int, value float64) {
+	w.Field1 = value
 }
 
 func (w *ChannelWriter) Update() (resp *http.Response, err error) {
-	requestBody, err := json.Marshal(map[string]string{
-		"api_key": w.key,
-		"field1":  w.fields[0],
-	})
+	requestBody, err := json.Marshal(w)
 	if err != nil {
 		return nil, err
 	}

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"flag"
+  //"io/ioutil"
 
 	"github.com/MichaelS11/go-hx711"
 	"github.com/wogri/bhive/scale/thingspeak_client"
@@ -37,14 +38,17 @@ func main() {
 	if err != nil {
 		fmt.Println("ReadDataMedianThenMovingAvgs error:", err)
 	}
-
-	// moving average
 	fmt.Println(movingAvg)
 	thing := thingspeak_client.NewChannelWriter(*thingspeakKey)
-	thing.AddField(1, fmt.Sprintf("%f", movingAvg))
-	_, err = thing.Update()
+  // avg := fmt.Sprintf("%f", movingAvg)
+  // fmt.Println(avg)
+	thing.AddField(1, movingAvg)
+  _, err = thing.Update()
 	if err != nil {
 		fmt.Println("ThingSpeak error:", err)
 	}
+  //fmt.Println("HTTP: %s", r.Status)
+  //body, err := ioutil.ReadAll(r.Body)
+  //fmt.Println(string(body))
 
 }
