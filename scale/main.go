@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"flag"
-  //"io/ioutil"
+	"fmt"
+	//"io/ioutil"
 
 	"github.com/MichaelS11/go-hx711"
 	"github.com/wogri/bhive/scale/thingspeak_client"
@@ -33,22 +33,23 @@ func main() {
 	hx711.AdjustZero = 43428
 	hx711.AdjustScale = 20.544371
 
-	previousReadings := []float64{}
-	movingAvg, err := hx711.ReadDataMedianThenMovingAvgs(11, 8, &previousReadings)
+	// previousReadings := []float64{}
+	// movingAvg, err := hx711.ReadDataMedianThenMovingAvgs(11, 8, &previousReadings)
+	weight, err := hx711.ReadDataMedian(11)
 	if err != nil {
 		fmt.Println("ReadDataMedianThenMovingAvgs error:", err)
 	}
-	fmt.Println(movingAvg)
+	fmt.Println(weight)
 	thing := thingspeak_client.NewChannelWriter(*thingspeakKey)
-  // avg := fmt.Sprintf("%f", movingAvg)
-  // fmt.Println(avg)
-	thing.AddField(1, movingAvg)
-  _, err = thing.Update()
+	// avg := fmt.Sprintf("%f", movingAvg)
+	// fmt.Println(avg)
+	thing.AddField(1, weight)
+	_, err = thing.Update()
 	if err != nil {
 		fmt.Println("ThingSpeak error:", err)
 	}
-  //fmt.Println("HTTP: %s", r.Status)
-  //body, err := ioutil.ReadAll(r.Body)
-  //fmt.Println(string(body))
+	//fmt.Println("HTTP: %s", r.Status)
+	//body, err := ioutil.ReadAll(r.Body)
+	//fmt.Println(string(body))
 
 }
