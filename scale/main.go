@@ -25,9 +25,14 @@ func main() {
 		return
 	}
 
-	// SetGain default is 128
+	defer hx711.Shutdown()
+	err = hx711.Reset()
+	if err != nil {
+		fmt.Println("Reset error:", err)
+		return
+	} // SetGain default is 128
 	// Gain of 128 or 64 is input channel A, gain of 32 is input channel B
-	hx711.SetGain(128)
+	//hx711.SetGain(128)
 
 	// make sure to use your values from calibration above
 	hx711.AdjustZero = 43428
