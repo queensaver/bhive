@@ -1,8 +1,10 @@
+.PHONY: all
+all: scale pi_copy
+
 scale: main.go thingspeak_client/thingspeak_client.go
-	env GOOS=linux GOARCH=arm GOARM=5 go build
+	env GOOS=linux GOARCH=arm GOARM=6 go build
 	# env GOOS=linux GOARCH=arm GOARM=5 go build -tags=gpiomem
 
 .PHONY: pi_copy
 pi_copy: main.go
 	scp scale pi@192.168.1.105:
-
