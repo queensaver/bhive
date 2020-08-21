@@ -14,7 +14,7 @@ mac = hex(get_mac())
 parser = argparse.ArgumentParser(description='beehive interface.')
 parser.add_argument('--reference_unit', type=float, help='The reference unit we divide the measurement by to get the desired weight.', default=20.544371)
 parser.add_argument('--offset', type=int, help='The offset in grams we substract from the measurement to tare it.', default=2115)
-parser.add_argument('--server_addr', type=str, help='HTTP server that implements the bBox REST API.', default="http://machine.intranet.wogri.com:8333")
+parser.add_argument('--server_addr', type=str, help='HTTP server that implements the bBox REST API.', default="http://machine.intranet.wogri.com:8333/scale")
 args = parser.parse_args()
 
 hx.set_reading_format("MSB", "MSB")
@@ -34,7 +34,7 @@ def measureWeight():
 
 def pushWeightToServer(weight):
     w = {"Weight": weight, "BBoxID": mac}
-    resp = requests.post(args.server_addr + "/scale", json=w)
+    resp = requests.post(args.server_addr, json=w)
     if resp.status_code != 200:
         sys.stderr.write("Something went terribly wrong, http status %s" % resp.status_code)
 
