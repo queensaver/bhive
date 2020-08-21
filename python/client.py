@@ -17,10 +17,6 @@ parser.add_argument('--offset', type=int, help='The offset in grams we substract
 parser.add_argument('--server_addr', type=str, help='HTTP server that implements the bBox REST API.', default="http://machine.intranet.wogri.com:8333")
 args = parser.parse_args()
 
-def cleanAndExit():
-    GPIO.cleanup()
-    sys.exit()
-
 hx.set_reading_format("MSB", "MSB")
 hx.set_reference_unit(args.reference_unit)
 
@@ -32,7 +28,6 @@ def measureWeight():
             val = 0
         print(val)
         hx.power_down()
-        hx.power_up()
     except Exception as e:
         sys.stderr.write(e)
     return val
@@ -44,11 +39,13 @@ def pushWeightToServer(weight):
         sys.stderr.write("Something went terribly wrong, http status %s" % resp.status_code)
 
 def run():
-    weight = measureWeight()
     try:
+        weight = measureWeight()
         pushWeightToServer(weight)
     # if the server can't be reached - log.
     except OSError as e:
         sys.stderr.write("Failed to connect to %s: %s" %(args.server_addr, e))
+    finally:
+        GPIO.cleanup()
 
 run()
