@@ -10,7 +10,7 @@ import requests
 
 
 hx = HX711(5, 6)
-mac = hex(get_mac())
+mac = format(get_mac(), 'x')
 parser = argparse.ArgumentParser(description='beehive interface.')
 parser.add_argument('--reference_unit', type=float, help='The reference unit we divide the measurement by to get the desired weight.', default=20.544371)
 parser.add_argument('--offset', type=int, help='The offset in grams we substract from the measurement to tare it.', default=2115)
