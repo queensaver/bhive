@@ -1,3 +1,9 @@
+- name: install apt packages for the bhive
+  apt:
+    name:
+    - python3-rpi.gpio
+    state: present
+
 - name: link bhive systemd service
   file:
     state: link
