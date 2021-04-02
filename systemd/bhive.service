@@ -1,0 +1,16 @@
+[Unit]
+Description=bHive client - hive logic
+After=network.target
+After=systemd-user-sessions.service
+After=network-online.target
+
+[Service]
+ExecStartPre=/usr/bin/curl -L http://192.168.1.1:8333/bhive/stable --output /home/pi/bOS/bhive
+ExecStartPre=/usr/bin/test -f /home/pi/bOS/bhive
+ExecStartPre=/usr/bin/chmod +x /home/pi/bOS/bhive
+ExecStart=/home/pi/bOS/bhive
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target
