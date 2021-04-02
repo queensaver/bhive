@@ -1,0 +1,59 @@
+# Todo: Run command to set filesystem read / write 
+- name: set permissions of tmp
+  file:
+    path: /tmp
+    state: directory
+    mode: 01777
+
+- name: aptget update and install some packages
+  apt: 
+    update_cache: yes
+    name:     
+      - tcpdump
+      - bzip2
+      - bash-completion
+      - less
+      - curl
+      - wget
+      - telnet 
+      - screen
+      - rsync
+      - tar
+      - psmisc
+      - host
+      - locales
+      - vim
+      - netcat
+
+- name: configure locales
+  locale_gen:
+    name: en_US.UTF-8
+    state: present
+
+- name: vimrc
+  copy:
+    dest: ~/.vimrc
+    content: |
+      set tabstop=2
+      set shiftwidth=2
+      set expandtab
+      set autoindent
+      set textwidth=120
+      set softtabstop=2
+      set smartindent 
+      set backspace=indent,eol,start
+      set encoding=utf-8
+      set fileencoding=utf-8
+
+- name: bashrc
+  copy:
+    dest: /home/pi/.bashrc
+    content: |
+      # ~/.bashrc
+      # 
+      set -o vi
+      alias ll='ls -l'
+      alias la='ls -a'
+      alias l='ls -CF'
+
+# Todo: Run command to set filesystem read only
