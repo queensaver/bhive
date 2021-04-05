@@ -1,11 +1,11 @@
 package temperature
 
 import (
-	"github.com/wogri/bbox/packages/temperature"
+	t "github.com/wogri/bbox/packages/temperature"
 	"github.com/yryz/ds18b20"
 )
 
-func GetTemperature(mac string) (*temperature.Temperature, error) {
+func GetTemperature(mac string) (*t.Temperature, error) {
 	sensors, err := ds18b20.Sensors()
 	if err != nil {
 		return nil, err
@@ -16,7 +16,7 @@ func GetTemperature(mac string) (*temperature.Temperature, error) {
 		if err != nil {
 			return nil, err
 		}
-		return &temperature.Temperature{
+		return &t.Temperature{
 			Temperature: measured_temperature,
 			BBoxID:      mac,
 			SensorID:    sensor}, nil
