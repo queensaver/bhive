@@ -65,6 +65,7 @@ func main() {
 	if err != nil {
 		log.Println("Error getting temperature: ", err)
 	}
+	// TODO: implement retry logic
 	post(*t)
 	print(string(pyScale))
 	print(string(pyHx711))
