@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"strings"
 
+	temperastureStruct "github.com/wogri/bbox/packages/temperature"
 	"github.com/wogri/bhive/packages/temperature"
 )
 
@@ -34,7 +35,7 @@ func getMacAddr() (string, error) {
 	return "", nil
 }
 
-func post(t temperature.Temperature) error {
+func post(t temperastureStruct.Temperature) error {
 	j, err := json.Marshal(t)
 	if err != nil {
 		return err
@@ -60,11 +61,11 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	temperature, err := temperature.GetTemperature(mac)
+	t, err := temperature.GetTemperature(mac)
 	if err != nil {
 		log.Println("Error getting temperature: ", err)
 	}
-	post(temperature)
+	post(*t)
 	print(string(pyScale))
 	print(string(pyHx711))
 }
