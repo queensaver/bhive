@@ -1,5 +1,9 @@
 package main
 
+import (
+  _	"embed"
+)
+
 //go:embed scale.py
 var pyScale []byte
 
