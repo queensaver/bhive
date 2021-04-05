@@ -5,11 +5,13 @@ import (
 	_ "embed"
 	"encoding/json"
 	"flag"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
 	"os/exec"
+	"strconv"
 	"strings"
 
 	temperastureStruct "github.com/wogri/bbox/packages/temperature"
@@ -68,27 +70,37 @@ func write_python() error {
 	if err != nil {
 		return err
 	}
-	err = ioutil.WriteFile(*ramDisk+"/hx711.py", pyhx711, 0755)
+	err = ioutil.WriteFile(*ramDisk+"/hx711.py", pyHx711, 0755)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func execute_python() error {
+func execute_python() (float64, error) {
 	var err error
-	err = exec.Command("python3", *ramDisk+"/scale.py") // TODO: add calibration parameters
+	cmd := exec.Command("python3", *ramDisk+"/scale.py") // TODO: add calibration parameters
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
-		return err
+		return 0, err
 	}
 	if err := cmd.Start(); err != nil {
-		return err
+		return 0, err
 	}
-	if err := cmd.Wait(); err != nil {
-		return err
+	var buf []byte
+	_, err = stdout.Read(buf)
+	if err != nil {
+		return 0, err
 	}
 
+	if err := cmd.Wait(); err != nil {
+		return 0, err
+	}
+	weight, err := strconv.ParseFloat(string(buf), 64)
+	if err != nil {
+		return 0, err
+	}
+	return weight, nil
 }
 
 func main() {
@@ -99,17 +111,23 @@ func main() {
 	t, err := temperature.GetTemperature(mac)
 	if err != nil {
 		log.Println("Error getting temperature: ", err)
+	} else {
+		// TODO: implement retry logic
+		fmt.Println("Temperature: ", t)
+		// post(*t)
 	}
-	// TODO: implement retry logic
-	post(*t)
+
 	err = write_python()
 	if err != nil {
 		log.Println("Error writing python script: ", err)
 	}
-	err = execute_python()
+	var weight float64
+	weight, err = execute_python()
 	if err != nil {
 		log.Println("Error executing python script: ", err)
+	} else {
+		fmt.Println("%v", weight)
+		// TODO: implement retry logic
+		// TODO: post weight to server
 	}
-	print(string(pyScale))
-	print(string(pyHx711))
 }
