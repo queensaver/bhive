@@ -27,7 +27,7 @@ var pyScale []byte
 //go:embed hx711.py
 var pyHx711 []byte
 
-var serverAddr = flag.String("server_addr", "http://192.168.233.1:8333/temperature", "HTTP server port")
+var serverAddr = flag.String("server_addr", "http://192.168.233.1:8333", "HTTP server port")
 var ramDisk = flag.String("ramdisk", "/home/pi/bOS", "loccation of ramdisk to store temporary files")
 
 func getMacAddr() (string, error) {
@@ -62,7 +62,7 @@ func postWeight(w scaleStruct.Scale) error {
 	if err != nil {
 		return err
 	}
-	req, err := http.NewRequest("POST", *serverAddr, bytes.NewBuffer(j))
+	req, err := http.NewRequest("POST", *serverAddr+"/scale", bytes.NewBuffer(j))
 	req.Header.Set("Content-Type", "application/json")
 	return post(req)
 }
@@ -72,7 +72,7 @@ func postTemperature(t temperastureStruct.Temperature) error {
 	if err != nil {
 		return err
 	}
-	req, err := http.NewRequest("POST", *serverAddr, bytes.NewBuffer(j))
+	req, err := http.NewRequest("POST", *serverAddr+"/temperature", bytes.NewBuffer(j))
 	req.Header.Set("Content-Type", "application/json")
 
 	return post(req)
