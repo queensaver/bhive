@@ -76,7 +76,7 @@ func main() {
 		}
 		t := temperature.Temperature{
 			Temperature: measured_temperature,
-			BBoxID:      mac,
+			BHiveID:      mac,
 			SensorID:    sensor}
 		err = post(t)
 		if err != nil {
