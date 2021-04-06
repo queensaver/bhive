@@ -92,6 +92,7 @@ func execute_python() (float64, error) {
 	if err != nil {
 		return 0, err
 	}
+	fmt.Println("Scale returned: ", string(buf))
 
 	if err := cmd.Wait(); err != nil {
 		return 0, err
@@ -104,6 +105,7 @@ func execute_python() (float64, error) {
 }
 
 func main() {
+	flag.Parse()
 	mac, err := getMacAddr()
 	if err != nil {
 		log.Fatal(err)

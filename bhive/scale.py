@@ -22,7 +22,6 @@ def measureWeight():
         val = hx.get_weight(5) - args.offset
         if val < 0:
             val = 0
-        print(val)
         hx.power_down()
     except Exception as e:
         sys.stderr.write(e)
