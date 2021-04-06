@@ -15,3 +15,17 @@
     state: started
     enabled: yes
     name: bhive
+
+- name: active w1-gpio service
+  lineinfile:
+    path: /boot/config.txt
+    line: dtoverlay=w1-gpio,gpiopin=4
+
+- name: load kernel modules
+  file:
+    state: present
+    path: /etc/modprobe.d/w1-gpio.conf
+    content: |
+      wire
+      w1-gpio
+      w1-therm
