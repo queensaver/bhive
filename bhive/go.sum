@@ -1,3 +1,5 @@
+github.com/wogri/bbox/packages/scale v0.0.0-20210406095238-cdb8b0741198 h1:xYzASPuHz1B51emS/fwTaTNG0Am3Eqlt5RTeuinmmFs=
+github.com/wogri/bbox/packages/scale v0.0.0-20210406095238-cdb8b0741198/go.mod h1:BoJNdP3GSQN21BlztW362Ot6ngctP5CobE0+0QD3Yho=
 github.com/wogri/bbox/packages/temperature v0.0.0-20210402053043-1d5fc3c63f9b h1:nUlouZGHJwnVi5dHq8HU9AQKw6X3ENbORX/7uHzxBQY=
 github.com/wogri/bbox/packages/temperature v0.0.0-20210402053043-1d5fc3c63f9b/go.mod h1:wEmpLQ7jsaVt5GIQD/mJLPeJBlyOPS3fY6syExBcZs4=
 github.com/wogri/bbox/packages/temperature v0.0.0-20210405063426-d59c4854117a h1:nbFozxim8j3ZeKQrJo+Cq8zqvbPlnhmlaL2gYq3f9mg=

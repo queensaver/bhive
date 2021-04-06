@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"net"
@@ -13,7 +14,9 @@ import (
 	"os/exec"
 	"strconv"
 	"strings"
+	"time"
 
+	scaleStruct "github.com/wogri/bbox/packages/scale"
 	temperastureStruct "github.com/wogri/bbox/packages/temperature"
 	"github.com/wogri/bhive/packages/temperature"
 )
@@ -40,14 +43,7 @@ func getMacAddr() (string, error) {
 	return "", nil
 }
 
-func post(t temperastureStruct.Temperature) error {
-	j, err := json.Marshal(t)
-	if err != nil {
-		return err
-	}
-	req, err := http.NewRequest("POST", *serverAddr, bytes.NewBuffer(j))
-	req.Header.Set("Content-Type", "application/json")
-
+func post(req *http.Request) error {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
@@ -59,6 +55,27 @@ func post(t temperastureStruct.Temperature) error {
 		log.Println("Got http return code ", resp.Status)
 	}
 	return nil
+}
+
+func postWeight(w scaleStruct.Scale) error {
+	j, err := json.Marshal(w)
+	if err != nil {
+		return err
+	}
+	req, err := http.NewRequest("POST", *serverAddr, bytes.NewBuffer(j))
+	req.Header.Set("Content-Type", "application/json")
+	return post(req)
+}
+
+func postTemperature(t temperastureStruct.Temperature) error {
+	j, err := json.Marshal(t)
+	if err != nil {
+		return err
+	}
+	req, err := http.NewRequest("POST", *serverAddr, bytes.NewBuffer(j))
+	req.Header.Set("Content-Type", "application/json")
+
+	return post(req)
 }
 
 // writes out a python file to the ramdisk.
@@ -84,19 +101,27 @@ func execute_python() (float64, error) {
 	if err != nil {
 		return 0, err
 	}
-	if err := cmd.Start(); err != nil {
-		return 0, err
-	}
-	var buf []byte
-	_, err = stdout.Read(buf)
+	stderr, err := cmd.StderrPipe()
 	if err != nil {
 		return 0, err
 	}
-	fmt.Println("Scale returned: ", string(buf))
+	if err := cmd.Start(); err != nil {
+		return 0, err
+	}
+	buf, err := io.ReadAll(stdout)
+	if err != nil {
+		return 0, err
+	}
+
+	stderrBuf, err := io.ReadAll(stderr)
+	if err != nil {
+		return 0, err
+	}
 
 	if err := cmd.Wait(); err != nil {
 		return 0, err
 	}
+	fmt.Println("Python StdErr Output: ", string(stderrBuf))
 	weight, err := strconv.ParseFloat(string(buf), 64)
 	if err != nil {
 		return 0, err
@@ -111,25 +136,26 @@ func main() {
 		log.Fatal(err)
 	}
 	t, err := temperature.GetTemperature(mac)
+	t.Timestamp = time.Now().Unix()
 	if err != nil {
 		log.Println("Error getting temperature: ", err)
 	} else {
 		// TODO: implement retry logic
 		fmt.Println("Temperature: ", t)
-		// post(*t)
+		postTemperature(*t)
 	}
 
 	err = write_python()
 	if err != nil {
 		log.Println("Error writing python script: ", err)
 	}
-	var weight float64
-	weight, err = execute_python()
+	weight, err := execute_python()
 	if err != nil {
 		log.Println("Error executing python script: ", err)
 	} else {
-		fmt.Println("%v", weight)
-		// TODO: implement retry logic
-		// TODO: post weight to server
+		fmt.Println("Weight: %s", weight)
+		postWeight(scaleStruct.Scale{Weight: weight,
+			BHiveID:   mac,
+			Timestamp: time.Now().Unix()})
 	}
 }

@@ -30,7 +30,7 @@ def measureWeight():
 def run():
     try:
         weight = measureWeight()
-        print(weight)
+        print(weight, end='')
     except OSError as e:
         sys.stderr.write("Failed to measure weight: %s" % e)
     finally:

@@ -18,7 +18,7 @@ func GetTemperature(mac string) (*t.Temperature, error) {
 		}
 		return &t.Temperature{
 			Temperature: measured_temperature,
-			BBoxID:      mac,
+			BHiveID:     mac,
 			SensorID:    sensor}, nil
 	}
 	return nil, nil
