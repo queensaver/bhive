@@ -12,5 +12,6 @@ else
   git clone https://github.com/wogri/bhive.git
 fi
 
+ansible-playbook bhive/ansible/bhive.yml
 ansible-playbook bhive/ansible/read_only.yml
 sudo reboot
