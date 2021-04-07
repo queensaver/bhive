@@ -22,9 +22,8 @@
     line: dtoverlay=w1-gpio,gpiopin=11
 
 - name: load kernel modules
-  file:
-    state: present
-    path: /etc/modprobe.d/w1-gpio.conf
+  copy:
+    dest: /etc/modprobe.d/w1-gpio.conf
     content: |
       wire
       w1-gpio
