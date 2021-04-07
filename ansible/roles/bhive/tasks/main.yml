@@ -29,3 +29,7 @@
       wire
       w1-gpio
       w1-therm
+
+- name: set hostname
+  hostname:
+    name: bhive
