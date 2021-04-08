@@ -32,3 +32,8 @@
 - name: set hostname
   hostname:
     name: bhive
+
+- name: make hostname resolvable
+  lineinfile:
+    path: /etc/hosts
+    line: 127.0.0.1 bhive
