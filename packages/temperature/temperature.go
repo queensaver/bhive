@@ -1,11 +1,18 @@
 package temperature
 
 import (
+	"fmt"
+
 	t "github.com/wogri/bbox/packages/temperature"
 	"github.com/yryz/ds18b20"
 )
 
 func GetTemperature(mac string) (*t.Temperature, error) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println("GetTemperature:", err)
+		}
+	}()
 	sensors, err := ds18b20.Sensors()
 	if err != nil {
 		return nil, err
