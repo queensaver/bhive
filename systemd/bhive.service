@@ -9,7 +9,7 @@ ExecStartPre=/usr/bin/curl -L http://192.168.233.1:8333/bhive --output /home/pi/
 ExecStartPre=/usr/bin/test -f /home/pi/bOS/bhive
 ExecStartPre=/usr/bin/chmod +x /home/pi/bOS/bhive
 ExecStart=/home/pi/bOS/bhive
-Restart=always
+Restart=on-failure
 RestartSec=60
 
 [Install]
