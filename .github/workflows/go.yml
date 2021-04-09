@@ -23,7 +23,7 @@ jobs:
 #      working-directory: ./packages/buffer
       
     - name: Build bHive client
-      run: env GOOS=linux GOARCH=arm GOARM=6 go build -ldflags="-s -w" -v ./...
+      run: env GOOS=linux GOARCH=arm GOARM=6 go build -ldflags="-s -w" -v
       working-directory: ./bhive
 
     - uses: "marvinpinto/action-automatic-releases@latest"
