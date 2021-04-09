@@ -139,8 +139,7 @@ func main() {
 	if err != nil {
 		log.Println("Error getting temperature: ", err)
 	} else {
-		// TODO: implement retry logic
-	  t.Timestamp = time.Now().Unix()
+		t.Timestamp = time.Now().Unix()
 		fmt.Println("Temperature: ", t)
 		postTemperature(*t)
 	}
