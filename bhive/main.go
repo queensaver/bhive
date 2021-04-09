@@ -18,7 +18,7 @@ import (
 
 	scaleStruct "github.com/wogri/bbox/packages/scale"
 	temperastureStruct "github.com/wogri/bbox/packages/temperature"
-	"github.com/wogri/bhive/packages/temperature"
+	"github.com/wogri/bhive/bhive/temperature"
 )
 
 //go:embed scale.py
@@ -136,11 +136,11 @@ func main() {
 		log.Fatal(err)
 	}
 	t, err := temperature.GetTemperature(mac)
-	t.Timestamp = time.Now().Unix()
 	if err != nil {
 		log.Println("Error getting temperature: ", err)
 	} else {
 		// TODO: implement retry logic
+	  t.Timestamp = time.Now().Unix()
 		fmt.Println("Temperature: ", t)
 		postTemperature(*t)
 	}

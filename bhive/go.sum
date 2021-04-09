@@ -5,7 +5,7 @@ github.com/wogri/bbox/packages/scale v0.0.0-20210406184934-8ef1bc306158/go.mod h
 github.com/wogri/bbox/packages/temperature v0.0.0-20210402053043-1d5fc3c63f9b/go.mod h1:wEmpLQ7jsaVt5GIQD/mJLPeJBlyOPS3fY6syExBcZs4=
 github.com/wogri/bbox/packages/temperature v0.0.0-20210406095238-cdb8b0741198 h1:EUghu1qpMvvFHRbqJK0zsrEKr9N0Z/fiHwcJqk1mNno=
 github.com/wogri/bbox/packages/temperature v0.0.0-20210406095238-cdb8b0741198/go.mod h1:wEmpLQ7jsaVt5GIQD/mJLPeJBlyOPS3fY6syExBcZs4=
-github.com/wogri/bhive/packages/temperature v0.0.0-20210406173647-990d955a1a81 h1:x6eRAYF5bpZwyeYnB5Cg+VyBNhDX5Fn2gMWiQVic/as=
-github.com/wogri/bhive/packages/temperature v0.0.0-20210406173647-990d955a1a81/go.mod h1:/o9WXPl5/HY+GiOE7V9n67f6wU48PHKC66cd/VcXOSk=
+github.com/wogri/bbox/packages/temperature v0.0.0-20210408122021-528cf564c557 h1:ZdzjmA55JDtssbYdHRHWaXJbZjsLEgdeUkh/YwKi81s=
+github.com/wogri/bbox/packages/temperature v0.0.0-20210408122021-528cf564c557/go.mod h1:wEmpLQ7jsaVt5GIQD/mJLPeJBlyOPS3fY6syExBcZs4=
 github.com/yryz/ds18b20 v0.0.0-20200527154408-4a8f84bb82d4 h1:r/Ao3vlui4mHCnyqo/JoMm9F9bhs3lUZ93Zqk8dDQxo=
 github.com/yryz/ds18b20 v0.0.0-20200527154408-4a8f84bb82d4/go.mod h1:MqFju5qeLDFh+S9PqxYT7TEla8xeW7bgGr/69q3oki0=
