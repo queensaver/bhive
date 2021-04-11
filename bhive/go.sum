@@ -1,5 +1,5 @@
-github.com/btelemetry/packages/config v0.0.0-20210411064718-418dc5109709 h1:DWCX1bpdfTzqZ1UI1jIAFk/7Yte7o9gPZKvfrujPoyg=
-github.com/btelemetry/packages/config v0.0.0-20210411064718-418dc5109709/go.mod h1:tRTAGZog2glQbs2628bTZOJD8s2/rtza1dhXOct/PIU=
+github.com/btelemetry/packages/config v0.0.0-20210411091949-dfd7fe7dc549 h1:SkUu3cd36qeO+RZvfgWemru99dCozGi4AS3lBfO/EXI=
+github.com/btelemetry/packages/config v0.0.0-20210411091949-dfd7fe7dc549/go.mod h1:tRTAGZog2glQbs2628bTZOJD8s2/rtza1dhXOct/PIU=
 github.com/btelemetry/packages/scale v0.0.0-20210411064718-418dc5109709 h1:mGwpvcQaq3zksXBtIXqwxglC0iRv10koG23JY4mmuYk=
 github.com/btelemetry/packages/scale v0.0.0-20210411064718-418dc5109709/go.mod h1:0qO0F6xVqFrr7Jpzx3sd0fxOW8M1j/KwwfSfxKPrA9Y=
 github.com/btelemetry/packages/temperature v0.0.0-20210411064718-418dc5109709 h1:jbXnUTrM34ArZvr58MI8F1HoJNJguVNOxlbmig3yTEU=
