@@ -63,6 +63,7 @@ func postWeight(w scaleStruct.Scale) error {
 	if err != nil {
 		return err
 	}
+	log.Println("posting weight ", string(j))
 	req, err := http.NewRequest("POST", *serverAddr+"/scale", bytes.NewBuffer(j))
 	req.Header.Set("Content-Type", "application/json")
 	return post(req)
@@ -75,6 +76,7 @@ func postTemperature(t temperastureStruct.Temperature) error {
 	}
 	req, err := http.NewRequest("POST", *serverAddr+"/temperature", bytes.NewBuffer(j))
 	req.Header.Set("Content-Type", "application/json")
+	log.Println("posting temperature", string(j))
 
 	return post(req)
 }
@@ -95,13 +97,13 @@ func write_python() error {
 	return nil
 }
 
-func execute_python(reference_unit, offset float64) (float64, error) {
+func execute_python(reference_unit float64, offset int) (float64, error) {
 	var err error
 	cmd := exec.Command("python3",
-		*ramDisk+"/scale.py")
-	/*,
-	fmt.Sprintf("--reference_unit=%f", reference_unit),
-	fmt.Sprintf("--offset=%f", offset))*/
+		*ramDisk+"/scale.py",
+		fmt.Sprintf("--reference_unit=%f", reference_unit),
+		fmt.Sprintf("--offset=%d", offset))
+	fmt.Println("executing ", cmd)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		return 0, err
@@ -163,11 +165,11 @@ func main() {
 	if err != nil {
 		log.Fatalln("Error getting config: ", err)
 	}
-	weight, err := execute_python(c.ScaleReferenceUnit, c.ScaleOffset)
+	weight, err := execute_python(c.ScaleReferenceUnit, int(c.ScaleOffset))
 	if err != nil {
 		log.Fatalln("Error executing python script: ", err)
 	} else {
-		fmt.Println("Weight: %s", weight)
+		// fmt.Println("Weight: %s", weight)
 		postWeight(scaleStruct.Scale{Weight: weight,
 			BHiveID:   mac,
 			Timestamp: time.Now().Unix()})
