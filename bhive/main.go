@@ -16,9 +16,9 @@ import (
 	"strings"
 	"time"
 
-	scaleStruct "github.com/wogri/bbox/packages/scale"
-	temperastureStruct "github.com/wogri/bbox/packages/temperature"
-	"github.com/wogri/bhive/bhive/temperature"
+	scaleStruct "github.com/btelemetry/packages/scale"
+	temperastureStruct "github.com/btelemetry/packages/temperature"
+	"github.com/btelemetry/bhive/bhive/temperature"
 )
 
 //go:embed scale.py

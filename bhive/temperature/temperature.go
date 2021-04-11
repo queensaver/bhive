@@ -3,7 +3,7 @@ package temperature
 import (
 	"fmt"
 
-	t "github.com/wogri/bbox/packages/temperature"
+	t "github.com/btelemetry/packages/temperature"
 	"github.com/yryz/ds18b20"
 )
 

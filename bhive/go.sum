@@ -1,11 +1,6 @@
-github.com/wogri/bbox/packages/scale v0.0.0-20210406182248-2856b555f118 h1:S4GAKUuhxiQBgsAiPN53oYckxJAPRHi3mbZJjqeWY54=
-github.com/wogri/bbox/packages/scale v0.0.0-20210406182248-2856b555f118/go.mod h1:BoJNdP3GSQN21BlztW362Ot6ngctP5CobE0+0QD3Yho=
-github.com/wogri/bbox/packages/scale v0.0.0-20210406184934-8ef1bc306158 h1:0TDKYhJKUquR53caP12yu8SO8NYQ/PwMNP0swt2lKwQ=
-github.com/wogri/bbox/packages/scale v0.0.0-20210406184934-8ef1bc306158/go.mod h1:BoJNdP3GSQN21BlztW362Ot6ngctP5CobE0+0QD3Yho=
-github.com/wogri/bbox/packages/temperature v0.0.0-20210402053043-1d5fc3c63f9b/go.mod h1:wEmpLQ7jsaVt5GIQD/mJLPeJBlyOPS3fY6syExBcZs4=
-github.com/wogri/bbox/packages/temperature v0.0.0-20210406095238-cdb8b0741198 h1:EUghu1qpMvvFHRbqJK0zsrEKr9N0Z/fiHwcJqk1mNno=
-github.com/wogri/bbox/packages/temperature v0.0.0-20210406095238-cdb8b0741198/go.mod h1:wEmpLQ7jsaVt5GIQD/mJLPeJBlyOPS3fY6syExBcZs4=
-github.com/wogri/bbox/packages/temperature v0.0.0-20210408122021-528cf564c557 h1:ZdzjmA55JDtssbYdHRHWaXJbZjsLEgdeUkh/YwKi81s=
-github.com/wogri/bbox/packages/temperature v0.0.0-20210408122021-528cf564c557/go.mod h1:wEmpLQ7jsaVt5GIQD/mJLPeJBlyOPS3fY6syExBcZs4=
+github.com/btelemetry/packages/scale v0.0.0-20210411064718-418dc5109709 h1:mGwpvcQaq3zksXBtIXqwxglC0iRv10koG23JY4mmuYk=
+github.com/btelemetry/packages/scale v0.0.0-20210411064718-418dc5109709/go.mod h1:0qO0F6xVqFrr7Jpzx3sd0fxOW8M1j/KwwfSfxKPrA9Y=
+github.com/btelemetry/packages/temperature v0.0.0-20210411064718-418dc5109709 h1:jbXnUTrM34ArZvr58MI8F1HoJNJguVNOxlbmig3yTEU=
+github.com/btelemetry/packages/temperature v0.0.0-20210411064718-418dc5109709/go.mod h1:ZPvODVPxtWe8PvZkWkcvnX7X/eIZRN3tCp2fuowxqLo=
 github.com/yryz/ds18b20 v0.0.0-20200527154408-4a8f84bb82d4 h1:r/Ao3vlui4mHCnyqo/JoMm9F9bhs3lUZ93Zqk8dDQxo=
 github.com/yryz/ds18b20 v0.0.0-20200527154408-4a8f84bb82d4/go.mod h1:MqFju5qeLDFh+S9PqxYT7TEla8xeW7bgGr/69q3oki0=
