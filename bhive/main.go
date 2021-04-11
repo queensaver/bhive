@@ -16,9 +16,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/btelemetry/bhive/bhive/temperature"
+	"github.com/btelemetry/packages/config"
 	scaleStruct "github.com/btelemetry/packages/scale"
 	temperastureStruct "github.com/btelemetry/packages/temperature"
-	"github.com/btelemetry/bhive/bhive/temperature"
 )
 
 //go:embed scale.py
@@ -94,9 +95,12 @@ func write_python() error {
 	return nil
 }
 
-func execute_python() (float64, error) {
+func execute_python(reference_unit, offset float64) (float64, error) {
 	var err error
-	cmd := exec.Command("python3", *ramDisk+"/scale.py") // TODO: add calibration parameters
+	cmd := exec.Command("python3",
+		*ramDisk+"/scale.py",
+		fmt.Sprintf("--reference_unit=%f", reference_unit),
+		fmt.Sprintf("--offset=%f", offset))
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		return 0, err
@@ -146,11 +150,15 @@ func main() {
 
 	err = write_python()
 	if err != nil {
-		log.Println("Error writing python script: ", err)
+		log.Fatalln("Error writing python script: ", err)
 	}
-	weight, err := execute_python()
+	c, err := config.GetBHiveConfig(*serverAddr + "/config")
 	if err != nil {
-		log.Println("Error executing python script: ", err)
+		log.Fatalln("Error getting config: ", err)
+	}
+	weight, err := execute_python(c.ScaleReferenceUnit, c.ScaleOffset)
+	if err != nil {
+		log.Fatalln("Error executing python script: ", err)
 	} else {
 		fmt.Println("Weight: %s", weight)
 		postWeight(scaleStruct.Scale{Weight: weight,
