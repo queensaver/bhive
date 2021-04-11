@@ -98,9 +98,10 @@ func write_python() error {
 func execute_python(reference_unit, offset float64) (float64, error) {
 	var err error
 	cmd := exec.Command("python3",
-		*ramDisk+"/scale.py",
-		fmt.Sprintf("--reference_unit=%f", reference_unit),
-		fmt.Sprintf("--offset=%f", offset))
+		*ramDisk+"/scale.py")
+	/*,
+	fmt.Sprintf("--reference_unit=%f", reference_unit),
+	fmt.Sprintf("--offset=%f", offset))*/
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		return 0, err
@@ -110,6 +111,11 @@ func execute_python(reference_unit, offset float64) (float64, error) {
 		return 0, err
 	}
 	if err := cmd.Start(); err != nil {
+		stderrBuf, err := io.ReadAll(stderr)
+		if err != nil {
+			return 0, err
+		}
+		fmt.Println("Python StdErr Output: ", string(stderrBuf))
 		return 0, err
 	}
 	buf, err := io.ReadAll(stdout)
