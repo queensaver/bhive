@@ -139,6 +139,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	log.Println("MAC: ", mac)
 	t, err := temperature.GetTemperature(mac)
 	if err != nil {
 		log.Println("Error getting temperature: ", err)
