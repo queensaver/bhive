@@ -27,7 +27,7 @@ def measureWeight():
         sys.stderr.write(e)
     return val
 
-def run():
+def main():
     try:
         weight = measureWeight()
         print(weight, end='')
@@ -36,4 +36,4 @@ def run():
     finally:
         GPIO.cleanup()
 
-run()
+main()
