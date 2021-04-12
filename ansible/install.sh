@@ -9,7 +9,7 @@ sudo apt install -y ansible git
 if [ -e bhive ]; then
   git -C bhive/ pull
 else
-  git clone https://github.com/wogri/bhive.git
+  git clone https://github.com/btelemetry/bhive.git
 fi
 
 ansible-playbook bhive/ansible/bhive.yml
