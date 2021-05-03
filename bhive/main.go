@@ -16,10 +16,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/btelemetry/bhive/bhive/temperature"
-	"github.com/btelemetry/packages/config"
-	scaleStruct "github.com/btelemetry/packages/scale"
-	temperastureStruct "github.com/btelemetry/packages/temperature"
+	"github.com/queensaver/bhive/bhive/temperature"
+	"github.com/queensaver/packages/config"
+	scaleStruct "github.com/queensaver/packages/scale"
+	temperastureStruct "github.com/queensaver/packages/temperature"
 )
 
 //go:embed scale.py

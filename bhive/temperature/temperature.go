@@ -3,7 +3,7 @@ package temperature
 import (
 	"fmt"
 
-	t "github.com/btelemetry/packages/temperature"
+	t "github.com/queensaver/packages/temperature"
 	"github.com/yryz/ds18b20"
 )
 
