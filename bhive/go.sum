@@ -1,8 +1,10 @@
-github.com/queensaver/packages/config v0.0.0-20210411114149-2e72bda8ee99 h1:Jtn4D+Se9wbUnIeLO1UfxDD2hyV9UrpyCIoAXELtfhQ=
-github.com/queensaver/packages/config v0.0.0-20210411114149-2e72bda8ee99/go.mod h1:tRTAGZog2glQbs2628bTZOJD8s2/rtza1dhXOct/PIU=
-github.com/queensaver/packages/scale v0.0.0-20210411064718-418dc5109709 h1:mGwpvcQaq3zksXBtIXqwxglC0iRv10koG23JY4mmuYk=
-github.com/queensaver/packages/scale v0.0.0-20210411064718-418dc5109709/go.mod h1:0qO0F6xVqFrr7Jpzx3sd0fxOW8M1j/KwwfSfxKPrA9Y=
-github.com/queensaver/packages/temperature v0.0.0-20210411064718-418dc5109709 h1:jbXnUTrM34ArZvr58MI8F1HoJNJguVNOxlbmig3yTEU=
-github.com/queensaver/packages/temperature v0.0.0-20210411064718-418dc5109709/go.mod h1:ZPvODVPxtWe8PvZkWkcvnX7X/eIZRN3tCp2fuowxqLo=
+github.com/queensaver/packages/config v0.0.0-20210506191051-65a48b311f37 h1:sq0hUYji2k8KPMfRIINqWihBhpkmsAGvQ5efm8Dpjh0=
+github.com/queensaver/packages/config v0.0.0-20210506191051-65a48b311f37/go.mod h1:sGtlRPJOuYNiUMfxKNPf6e46PHYY3MeYvs7ObdeCWYQ=
+github.com/queensaver/packages/config v0.0.0-20210511072551-1e86d6ed6dad h1:KpsbhCrTvEpcyqctu33/zdg4je7Z4OhmE6Uem6gcflE=
+github.com/queensaver/packages/config v0.0.0-20210511072551-1e86d6ed6dad/go.mod h1:sGtlRPJOuYNiUMfxKNPf6e46PHYY3MeYvs7ObdeCWYQ=
+github.com/queensaver/packages/scale v0.0.0-20210506191051-65a48b311f37 h1:HqY66h6hXx6xoj2IrcE2ZvmPoLRdcnfAkrjRqkfmRSo=
+github.com/queensaver/packages/scale v0.0.0-20210506191051-65a48b311f37/go.mod h1:fdE/GV62B9kodox5RlhN5dGjUiZb3H1lEKpT6Oi45QM=
+github.com/queensaver/packages/temperature v0.0.0-20210506191051-65a48b311f37 h1:NH5ozcmBp3MntUQlQwJISyMljfnlABJe8ySCxfCk25Q=
+github.com/queensaver/packages/temperature v0.0.0-20210506191051-65a48b311f37/go.mod h1:MP5i3NL9Qn3RRITZvbtnfxr4fz2MV7/6JxDv03QsROM=
 github.com/yryz/ds18b20 v0.0.0-20200527154408-4a8f84bb82d4 h1:r/Ao3vlui4mHCnyqo/JoMm9F9bhs3lUZ93Zqk8dDQxo=
 github.com/yryz/ds18b20 v0.0.0-20200527154408-4a8f84bb82d4/go.mod h1:MqFju5qeLDFh+S9PqxYT7TEla8xeW7bgGr/69q3oki0=

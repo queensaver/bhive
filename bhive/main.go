@@ -97,12 +97,12 @@ func write_python() error {
 	return nil
 }
 
-func execute_python(reference_unit float64, offset int) (float64, error) {
+func executePython(reference_unit float64, offset float64) (float64, error) {
 	var err error
 	cmd := exec.Command("python3",
 		*ramDisk+"/scale.py",
 		fmt.Sprintf("--reference_unit=%f", reference_unit),
-		fmt.Sprintf("--offset=%d", offset))
+		fmt.Sprintf("--offset=%f", offset))
 	fmt.Println("executing ", cmd)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
@@ -165,7 +165,7 @@ func main() {
 	if err != nil {
 		log.Fatalln("Error getting config: ", err)
 	}
-	weight, err := execute_python(c.ScaleReferenceUnit, int(c.ScaleOffset))
+	weight, err := executePython(c.ScaleReferenceUnit, c.ScaleOffset)
 	if err != nil {
 		log.Fatalln("Error executing python script: ", err)
 	} else {
