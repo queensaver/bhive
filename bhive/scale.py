@@ -9,17 +9,16 @@ import argparse
 
 hx = HX711(5, 6)
 parser = argparse.ArgumentParser(description='beehive interface.')
-parser.add_argument('--reference_unit', type=float, help='The reference unit we divide the measurement by to get the desired weight.', default=20.544371)
-parser.add_argument('--offset', type=float, help='The offset in grams we substract from the measurement to tare it.', default=2115)
+parser.add_argument('--reference_unit', type=float, help='The reference unit we divide the measurement by to get the desired weight.', default=20.50671550671551)
+parser.add_argument('--offset', type=float, help='The offset in grams we substract from the measurement to tare it.', default=8524115.625)
 args = parser.parse_args()
 
-hx.set_reading_format("MSB", "MSB")
-hx.set_reference_unit(args.reference_unit)
+hx.set_offset(args.offset)
+hx.set_scale(args.reference_unit)
 
 def measureWeight():
     try:
-        hx.reset()
-        val = hx.get_weight(5) - args.offset
+        val = hx.get_grams()
         if val < 0:
             val = 0
         hx.power_down()
