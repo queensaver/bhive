@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	github.com/queensaver/packages/config v0.0.0-20210511072551-1e86d6ed6dad
-	github.com/queensaver/packages/scale v0.0.0-20210506191051-65a48b311f37
+	github.com/queensaver/packages/scale v0.0.0-20210601070738-527908db9928
 	github.com/queensaver/packages/temperature v0.0.0-20210506191051-65a48b311f37
 	github.com/yryz/ds18b20 v0.0.0-20200527154408-4a8f84bb82d4
 )
