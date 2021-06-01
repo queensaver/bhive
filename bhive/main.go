@@ -171,7 +171,7 @@ func main() {
 	} else {
 		// fmt.Println("Weight: %s", weight)
 		postWeight(scaleStruct.Scale{Weight: weight,
-			BHiveID:   mac,
-			Timestamp: time.Now().Unix()})
+			BhiveId:   mac,
+			Epoch: time.Now().Unix()})
 	}
 }
