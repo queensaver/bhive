@@ -6,6 +6,8 @@ github.com/queensaver/packages/scale v0.0.0-20210506191051-65a48b311f37 h1:HqY66
 github.com/queensaver/packages/scale v0.0.0-20210506191051-65a48b311f37/go.mod h1:fdE/GV62B9kodox5RlhN5dGjUiZb3H1lEKpT6Oi45QM=
 github.com/queensaver/packages/scale v0.0.0-20210601070738-527908db9928 h1:biVRfAbqa64oiG5Sw4Kuu1ZVsChTIg6tXRkoxciU1m0=
 github.com/queensaver/packages/scale v0.0.0-20210601070738-527908db9928/go.mod h1:fdE/GV62B9kodox5RlhN5dGjUiZb3H1lEKpT6Oi45QM=
+github.com/queensaver/packages/scale v0.0.0-20210602194116-aca6606e6a53 h1:enSbqOUzrpbqfd72iou6AIPImkB+IA7M/cNUjxUNxxg=
+github.com/queensaver/packages/scale v0.0.0-20210602194116-aca6606e6a53/go.mod h1:fdE/GV62B9kodox5RlhN5dGjUiZb3H1lEKpT6Oi45QM=
 github.com/queensaver/packages/temperature v0.0.0-20210506191051-65a48b311f37 h1:NH5ozcmBp3MntUQlQwJISyMljfnlABJe8ySCxfCk25Q=
 github.com/queensaver/packages/temperature v0.0.0-20210506191051-65a48b311f37/go.mod h1:MP5i3NL9Qn3RRITZvbtnfxr4fz2MV7/6JxDv03QsROM=
 github.com/yryz/ds18b20 v0.0.0-20200527154408-4a8f84bb82d4 h1:r/Ao3vlui4mHCnyqo/JoMm9F9bhs3lUZ93Zqk8dDQxo=
