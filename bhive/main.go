@@ -170,8 +170,8 @@ func main() {
 		log.Fatalln("Error executing python script: ", err)
 	} else {
 		// fmt.Println("Weight: %s", weight)
-		postWeight(scaleStruct.Scale{Weight: weight,
-			BhiveId:   mac,
-			Epoch: time.Now().Unix()})
+		postWeight(scaleStruct.Scale{weight: weight,
+			bhiveId:   mac,
+			epoch: time.Now().Unix()})
 	}
 }
