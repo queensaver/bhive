@@ -165,6 +165,7 @@ func main() {
 	if err != nil {
 		log.Fatalln("Error getting config: ", err)
 	}
+  log.Println("Config received: ", c)
 	weight, err := executePython(c.ScaleReferenceUnit, c.ScaleOffset)
 	if err != nil {
 		log.Fatalln("Error executing python script: ", err)
