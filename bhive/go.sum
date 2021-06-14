@@ -4,6 +4,8 @@ github.com/queensaver/packages/config v0.0.0-20210511072551-1e86d6ed6dad h1:Kpsb
 github.com/queensaver/packages/config v0.0.0-20210511072551-1e86d6ed6dad/go.mod h1:sGtlRPJOuYNiUMfxKNPf6e46PHYY3MeYvs7ObdeCWYQ=
 github.com/queensaver/packages/config v0.0.0-20210613181441-8b40e1944e05 h1:zUHIQXx4itEXie9S6zl73T0M+2MPgNjbLKwcGsbRT10=
 github.com/queensaver/packages/config v0.0.0-20210613181441-8b40e1944e05/go.mod h1:sGtlRPJOuYNiUMfxKNPf6e46PHYY3MeYvs7ObdeCWYQ=
+github.com/queensaver/packages/config v0.0.0-20210614040235-790e8a1cbf0d h1:xPnhNpjb1eCGdAGVFwL+D9GG448zFW7jRHS7Yf6I73A=
+github.com/queensaver/packages/config v0.0.0-20210614040235-790e8a1cbf0d/go.mod h1:sGtlRPJOuYNiUMfxKNPf6e46PHYY3MeYvs7ObdeCWYQ=
 github.com/queensaver/packages/scale v0.0.0-20210506191051-65a48b311f37 h1:HqY66h6hXx6xoj2IrcE2ZvmPoLRdcnfAkrjRqkfmRSo=
 github.com/queensaver/packages/scale v0.0.0-20210506191051-65a48b311f37/go.mod h1:fdE/GV62B9kodox5RlhN5dGjUiZb3H1lEKpT6Oi45QM=
 github.com/queensaver/packages/scale v0.0.0-20210601070738-527908db9928 h1:biVRfAbqa64oiG5Sw4Kuu1ZVsChTIg6tXRkoxciU1m0=
