@@ -2,7 +2,7 @@ connectors:
   RPi:
     type: Zero or 3B+
     subtype: male
-    pinlabels: [3V, 5V, 5V, GND, GND, GPIO05, GPIO06, GPIO15, GPIO16]
+    pinlabels: [3V3, 3V3, 5V, GND, GND, GPIO05, GPIO06, GPIO11]
     manufacturer: Raspberry Pi
     pincount: 40
     image:
@@ -20,23 +20,52 @@ connectors:
     manufacturer: Bosche
     pinlabels: [Red, Black, Green, White, Shield]
 
+  Resistor:
+    type: "4.7 KOhm"
+    subtype: resistor
+    pincount: 2
+
+  Sensor:
+    type: DS18B20
+    pinlabels: [Red, Black, Green]
+    subtype: Temperature
+
 cables:
   hx-cable:
     color_code: DIN
     wirecount: 4
 
+  resistor-cable:
+    wirecount: 2
+    color_code: DIN
+    
   scale-cable:
     wirecount: 4
     colors: [RD, BK, GN, WH]
 
+  temp-cable:
+    wirecount: 3
+    colors: [RD, BK, GN]
+    
 
 connections:
   -
     - RPi: [1,4,6,7]
     - hx-cable: [1,2,3,4]
     - HX711: [1,2,3,4]
+
   -
     - HX711: [5,6,7,8]
     - scale-cable: [1,2,3,4]
     - Scale: [1,2,3,4]
+
+  - 
+    - Resistor: [1,2]
+    - resistor-cable: [1,2]
+    - RPi: [2,8]
+
+  - 
+    - Sensor: [1,2,3]
+    - temp-cable: [1,2,3]
+    - RPi: [2, 5, 8]
 
