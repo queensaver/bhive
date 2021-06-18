@@ -5,6 +5,9 @@ connectors:
     pinlabels: [3V, 5V, 5V, GND, GND, GPIO05, GPIO06, GPIO15, GPIO16]
     manufacturer: Raspberry Pi
     pincount: 40
+    image:
+      src: gpios.png
+      width: 150
 
   HX711:
     type: HX711
@@ -23,8 +26,8 @@ cables:
     wirecount: 4
 
   scale-cable:
-    color_code: DIN
     wirecount: 4
+    colors: [RD, BK, GN, WH]
 
 
 connections:
