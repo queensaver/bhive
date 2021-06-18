@@ -264,19 +264,19 @@
 <polygon fill="none" stroke="#000000" points="1157,-92 1157,-115 1206,-115 1206,-92 1157,-92"/>
 <text text-anchor="start" x="1177" y="-99.8" font-family="arial" font-size="14.00" fill="#000000">1</text>
 <polygon fill="none" stroke="#000000" points="1206,-92 1206,-115 1287,-115 1287,-92 1206,-92"/>
-<text text-anchor="start" x="1231.5" y="-99.8" font-family="arial" font-size="14.00" fill="#000000">Blue</text>
+<text text-anchor="start" x="1232.5" y="-99.8" font-family="arial" font-size="14.00" fill="#000000">Red</text>
 <polygon fill="none" stroke="#000000" points="1157,-69 1157,-92 1206,-92 1206,-69 1157,-69"/>
 <text text-anchor="start" x="1177" y="-76.8" font-family="arial" font-size="14.00" fill="#000000">2</text>
 <polygon fill="none" stroke="#000000" points="1206,-69 1206,-92 1287,-92 1287,-69 1206,-69"/>
-<text text-anchor="start" x="1226" y="-76.8" font-family="arial" font-size="14.00" fill="#000000">Green</text>
+<text text-anchor="start" x="1228" y="-76.8" font-family="arial" font-size="14.00" fill="#000000">Black</text>
 <polygon fill="none" stroke="#000000" points="1157,-46 1157,-69 1206,-69 1206,-46 1157,-46"/>
 <text text-anchor="start" x="1177" y="-53.8" font-family="arial" font-size="14.00" fill="#000000">3</text>
 <polygon fill="none" stroke="#000000" points="1206,-46 1206,-69 1287,-69 1287,-46 1206,-46"/>
-<text text-anchor="start" x="1225.5" y="-53.8" font-family="arial" font-size="14.00" fill="#000000">Yellow</text>
+<text text-anchor="start" x="1226" y="-53.8" font-family="arial" font-size="14.00" fill="#000000">Green</text>
 <polygon fill="none" stroke="#000000" points="1157,-23 1157,-46 1206,-46 1206,-23 1157,-23"/>
 <text text-anchor="start" x="1177" y="-30.8" font-family="arial" font-size="14.00" fill="#000000">4</text>
 <polygon fill="none" stroke="#000000" points="1206,-23 1206,-46 1287,-46 1287,-23 1206,-23"/>
-<text text-anchor="start" x="1232.5" y="-30.8" font-family="arial" font-size="14.00" fill="#000000">Red</text>
+<text text-anchor="start" x="1228" y="-30.8" font-family="arial" font-size="14.00" fill="#000000">White</text>
 <polygon fill="none" stroke="#000000" points="1157,0 1157,-23 1206,-23 1206,0 1157,0"/>
 <text text-anchor="start" x="1177" y="-7.8" font-family="arial" font-size="14.00" fill="#000000">5</text>
 <polygon fill="none" stroke="#000000" points="1206,0 1206,-23 1287,-23 1287,0 1206,0"/>

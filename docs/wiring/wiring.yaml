@@ -15,7 +15,7 @@ connectors:
     type: Scale
     subtype: cable
     manufacturer: Bosche
-    pinlabels: [Blue, Green, Yellow, Red, Shield]
+    pinlabels: [Red, Black, Green, White, Shield]
 
 cables:
   hx-cable:
