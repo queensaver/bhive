@@ -2,14 +2,14 @@ connectors:
   RPi:
     type: Zero or 3B+
     subtype: male
-    pinlabels: [GND, GND, 5V, 5V, GPIO11, GPIO14, GPIO15, GPIO16]
+    pinlabels: [3V, 5V, 5V, GND, GND, GPIO05, GPIO06, GPIO15, GPIO16]
     manufacturer: Raspberry Pi
     pincount: 40
 
   HX711:
     type: HX711
     subtype: male
-    pinlabels: [GND, 5V, Data, Data]
+    pinlabels: [VCC, GND, DT, SCK, E+, E-, A-, A+]
 
   Scale:
     type: Scale
@@ -29,11 +29,11 @@ cables:
 
 connections:
   -
-    - RPi: [1,3,5,6]
+    - RPi: [1,4,6,7]
     - hx-cable: [1,2,3,4]
     - HX711: [1,2,3,4]
   -
-    - RPi: [2,4,7,8]
+    - HX711: [3,4,7,8]
     - scale-cable: [1,2,3,4]
     - Scale: [1,2,3,4]
 
