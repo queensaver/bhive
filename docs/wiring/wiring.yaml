@@ -9,7 +9,7 @@ connectors:
   HX711:
     type: HX711
     subtype: male
-    pinlabels: [VCC, GND, DT, SCK, E+, E-, A-, A+]
+    pinlabels: [VCC, GND, DT, SCK, E+, E-, A+, A-]
 
   Scale:
     type: Scale
