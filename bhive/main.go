@@ -10,6 +10,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net"
+  "sort"
 	"net/http"
 	"os/exec"
 	"strconv"
@@ -30,6 +31,7 @@ var pyHx711 []byte
 
 var serverAddr = flag.String("server_addr", "http://192.168.233.1:8333", "HTTP server port")
 var ramDisk = flag.String("ramdisk", "/home/pi/bOS", "loccation of ramdisk to store temporary files")
+var measurements = flag.Int("num_weight_measurements", 5, "Number of scale measurements")
 
 func getMacAddr() (string, error) {
 	interfaces, err := net.Interfaces()
@@ -166,13 +168,18 @@ func main() {
 		log.Fatalln("Error getting config: ", err)
 	}
   log.Println("Config received: ", c)
-	weight, err := executePython(c.ScaleReferenceUnit, c.ScaleOffset)
-	if err != nil {
-		log.Fatalln("Error executing python script: ", err)
-	} else {
-		// fmt.Println("Weight: %s", weight)
-		postWeight(scaleStruct.Scale{Weight: weight,
-			BhiveId:   mac,
-			Epoch: time.Now().Unix()})
-	}
+  var weights []float64
+  for i := 0; i < *measurements ; i++ {
+	  weight, err := executePython(c.ScaleReferenceUnit, c.ScaleOffset)
+    if err != nil {
+      log.Fatalln("Error executing python script: ", err)
+    }
+    weights = append(weights, weight)
+  }
+  sort.Float64s(weights)
+  medianPosition := len(weights) / 2
+  weight := weights[medianPosition] // We ignore that an even number of measurements would not calculate the exact median value. 
+  postWeight(scaleStruct.Scale{Weight: weight,
+    BhiveId:   mac,
+    Epoch: time.Now().Unix()})
 }
