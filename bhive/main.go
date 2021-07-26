@@ -10,9 +10,9 @@ import (
 	"io/ioutil"
 	"log"
 	"net"
-  "sort"
 	"net/http"
 	"os/exec"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -167,19 +167,19 @@ func main() {
 	if err != nil {
 		log.Fatalln("Error getting config: ", err)
 	}
-  log.Println("Config received: ", c)
-  var weights []float64
-  for i := 0; i < *measurements ; i++ {
-	  weight, err := executePython(c.ScaleReferenceUnit, c.ScaleOffset)
-    if err != nil {
-      log.Fatalln("Error executing python script: ", err)
-    }
-    weights = append(weights, weight)
-  }
-  sort.Float64s(weights)
-  medianPosition := len(weights) / 2
-  weight := weights[medianPosition] // We ignore that an even number of measurements would not calculate the exact median value. 
-  postWeight(scaleStruct.Scale{Weight: weight,
-    BhiveId:   mac,
-    Epoch: time.Now().Unix()})
+	log.Println("Config received: ", c)
+	var weights []float64
+	for i := 0; i < *measurements; i++ {
+		weight, err := executePython(c.ScaleReferenceUnit, c.ScaleOffset)
+		if err != nil {
+			log.Fatalln("Error executing python script: ", err)
+		}
+		weights = append(weights, weight)
+	}
+	sort.Float64s(weights)
+	medianPosition := len(weights) / 2
+	weight := weights[medianPosition] // We ignore that an even number of measurements would not calculate the exact median value.
+	postWeight(scaleStruct.Scale{Weight: weight,
+		BhiveId: mac,
+		Epoch:   time.Now().Unix()})
 }
