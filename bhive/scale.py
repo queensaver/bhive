@@ -7,7 +7,7 @@ from hx711 import HX711
 import argparse
 
 
-hx = HX711(5, 6)
+hx = HX711(27, 22)
 parser = argparse.ArgumentParser(description='beehive interface.')
 parser.add_argument('--reference_unit', type=float, help='The reference unit we divide the measurement by to get the desired weight.', default=20.50671550671551)
 parser.add_argument('--offset', type=float, help='The offset in grams we substract from the measurement to tare it.', default=8524115.625)
