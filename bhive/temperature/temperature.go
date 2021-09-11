@@ -15,13 +15,17 @@ func GetTemperature(mac string) (*t.Temperature, error) {
 	}()
 	sensors, err := ds18b20.Sensors()
 	if err != nil {
-		return nil, err
+		return &t.Temperature{
+			BHiveID: mac,
+			Error:   fmt.Sprintf("%s", err)}, err
 	}
 
 	for _, sensor := range sensors {
 		measured_temperature, err := ds18b20.Temperature(sensor)
 		if err != nil {
-			return nil, err
+			return &t.Temperature{
+				BHiveID: mac,
+				Error:   fmt.Sprintf("%s", err)}, err
 		}
 		return &t.Temperature{
 			Temperature: measured_temperature,
