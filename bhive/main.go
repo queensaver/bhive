@@ -153,11 +153,10 @@ func main() {
 	t, err := temperature.GetTemperature(mac)
 	if err != nil {
 		log.Println("Error getting temperature: ", err)
-	} else {
-		t.Timestamp = time.Now().Unix()
-		fmt.Println("Temperature: ", t)
-		postTemperature(*t)
 	}
+	t.Timestamp = time.Now().Unix()
+	fmt.Println("Temperature: ", t)
+	postTemperature(*t)
 
 	err = write_python()
 	if err != nil {

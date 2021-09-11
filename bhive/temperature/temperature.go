@@ -32,5 +32,7 @@ func GetTemperature(mac string) (*t.Temperature, error) {
 			BHiveID:     mac,
 			SensorID:    sensor}, nil
 	}
-	return nil, nil
+	return &t.Temperature{
+		BHiveID: mac,
+		Error:   "no sensor found"}, nil
 }
