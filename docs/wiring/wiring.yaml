@@ -2,7 +2,7 @@ connectors:
   RPi:
     type: Zero or 3B+
     subtype: male
-    pinlabels: [3V3, 3V3, 5V, GND, GND, GPIO05, GPIO06, GPIO11]
+    pinlabels: [3V3, 3V3, 5V, GND, GND, GPIO27, GPIO22, GPIO17]
     manufacturer: Raspberry Pi
     pincount: 40
     image:
