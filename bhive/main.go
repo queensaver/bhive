@@ -19,6 +19,7 @@ import (
 
 	"github.com/queensaver/bhive/bhive/temperature"
 	"github.com/queensaver/packages/config"
+	"github.com/queensaver/packages/logger"
 	scaleStruct "github.com/queensaver/packages/scale"
 	temperastureStruct "github.com/queensaver/packages/temperature"
 )
@@ -55,7 +56,7 @@ func post(req *http.Request) error {
 	defer resp.Body.Close()
 
 	if resp.Status != "200" {
-		log.Println("Got http return code ", resp.Status)
+		logger.Info("Post got unexpected return code", "http_status", resp.Status)
 	}
 	return nil
 }
@@ -65,7 +66,7 @@ func postWeight(w scaleStruct.Scale) error {
 	if err != nil {
 		return err
 	}
-	log.Println("posting weight ", string(j))
+	logger.Debug("posting weight ", "json", string(j))
 	req, err := http.NewRequest("POST", *serverAddr+"/scale", bytes.NewBuffer(j))
 	req.Header.Set("Content-Type", "application/json")
 	return post(req)
@@ -78,7 +79,7 @@ func postTemperature(t temperastureStruct.Temperature) error {
 	}
 	req, err := http.NewRequest("POST", *serverAddr+"/temperature", bytes.NewBuffer(j))
 	req.Header.Set("Content-Type", "application/json")
-	log.Println("posting temperature", string(j))
+	logger.Debug("posting temperature", "json", string(j))
 
 	return post(req)
 }
@@ -147,12 +148,12 @@ func main() {
 	flag.Parse()
 	mac, err := getMacAddr()
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal(fmt.Sprintf("%s", err))
 	}
-	log.Println("MAC: ", mac)
+	logger.Debug("MAC address", "mac", mac)
 	t, err := temperature.GetTemperature(mac)
 	if err != nil {
-		log.Println("Error getting temperature: ", err)
+		logger.Error("Error getting temperature", "error", err)
 	}
 	t.Timestamp = time.Now().Unix()
 	fmt.Println("Temperature: ", t)
@@ -160,13 +161,13 @@ func main() {
 
 	err = write_python()
 	if err != nil {
-		log.Fatalln("Error writing python script: ", err)
+		logger.Fatal("Error writing python script", "error", err)
 	}
 	c, err := config.GetBHiveConfig(*serverAddr + "/config")
 	if err != nil {
-		log.Fatalln("Error getting config: ", err)
+		logger.Fatal("Error getting config", "error", err)
 	}
-	log.Println("Config received: ", c)
+	logger.Debug("Config received", "config", c)
 	var weights []float64
 	for i := 0; i < *measurements; i++ {
 		weight, err := executePython(c.ScaleReferenceUnit, c.ScaleOffset)
