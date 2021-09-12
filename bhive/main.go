@@ -68,6 +68,9 @@ func postWeight(w scaleStruct.Scale) error {
 	}
 	logger.Debug("posting weight ", "json", string(j))
 	req, err := http.NewRequest("POST", *serverAddr+"/scale", bytes.NewBuffer(j))
+	if err != nil {
+		return (err)
+	}
 	req.Header.Set("Content-Type", "application/json")
 	return post(req)
 }
@@ -78,6 +81,9 @@ func postTemperature(t temperastureStruct.Temperature) error {
 		return err
 	}
 	req, err := http.NewRequest("POST", *serverAddr+"/temperature", bytes.NewBuffer(j))
+	if err != nil {
+		return (err)
+	}
 	req.Header.Set("Content-Type", "application/json")
 	logger.Debug("posting temperature", "json", string(j))
 
