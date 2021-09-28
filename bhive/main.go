@@ -61,6 +61,14 @@ func post(req *http.Request) error {
 	return nil
 }
 
+func sendFlush() error {
+	req, err := http.NewRequest("POST", *serverAddr+"/flush", bytes.NewBuffer([]byte{}))
+	if err != nil {
+		return err
+	}
+	return post(req)
+}
+
 func postWeight(w scaleStruct.Scale) error {
 	j, err := json.Marshal(w)
 	if err != nil {
@@ -154,7 +162,7 @@ func main() {
 	flag.Parse()
 	mac, err := getMacAddr()
 	if err != nil {
-		logger.Fatal(fmt.Sprintf("%s", err))
+		logger.Fatal(fmt.Sprintf("could not get mac address", "error", err))
 	}
 	logger.Debug("MAC address", "mac", mac)
 	t, err := temperature.GetTemperature(mac)
@@ -188,4 +196,8 @@ func main() {
 	postWeight(scaleStruct.Scale{Weight: weight,
 		BhiveId: mac,
 		Epoch:   time.Now().Unix()})
+	err = sendFlush()
+	if err != nil {
+		logger.Info("Error sending flush", "error", err)
+	}
 }
