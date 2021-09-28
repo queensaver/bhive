@@ -162,7 +162,7 @@ func main() {
 	flag.Parse()
 	mac, err := getMacAddr()
 	if err != nil {
-		logger.Fatal(fmt.Sprintf("could not get mac address", "error", err))
+		logger.Fatal("could not get mac address", "error", err)
 	}
 	logger.Debug("MAC address", "mac", mac)
 	t, err := temperature.GetTemperature(mac)
