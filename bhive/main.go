@@ -17,10 +17,12 @@ import (
 	"strings"
 	"time"
 
+	"github.com/queensaver/bhive/bhive/sound"
 	"github.com/queensaver/bhive/bhive/temperature"
 	"github.com/queensaver/packages/config"
 	"github.com/queensaver/packages/logger"
 	scaleStruct "github.com/queensaver/packages/scale"
+	soundStruct "github.com/queensaver/packages/sound"
 	temperastureStruct "github.com/queensaver/packages/temperature"
 )
 
@@ -33,6 +35,7 @@ var pyHx711 []byte
 var serverAddr = flag.String("server_addr", "http://192.168.233.1:8333", "HTTP server port")
 var ramDisk = flag.String("ramdisk", "/home/pi/bOS", "loccation of ramdisk to store temporary files")
 var measurements = flag.Int("num_weight_measurements", 5, "Number of scale measurements")
+var soundFile = flag.String("sound_file", "/home/pi/bOS/audio.wav", "File where to record sound samples to")
 
 func getMacAddr() (string, error) {
 	interfaces, err := net.Interfaces()
@@ -94,6 +97,21 @@ func postTemperature(t temperastureStruct.Temperature) error {
 	}
 	req.Header.Set("Content-Type", "application/json")
 	logger.Debug("posting temperature", "json", string(j))
+
+	return post(req)
+}
+
+func postSound(s *soundStruct.Sound) error {
+	j, err := json.Marshal(s)
+	if err != nil {
+		return err
+	}
+	req, err := http.NewRequest("POST", *serverAddr+"/sound", bytes.NewBuffer(j))
+	if err != nil {
+		return (err)
+	}
+	req.Header.Set("Content-Type", "application/json")
+	logger.Debug("posting sound", "json", string(j))
 
 	return post(req)
 }
@@ -196,6 +214,17 @@ func main() {
 	postWeight(scaleStruct.Scale{Weight: weight,
 		BhiveId: mac,
 		Epoch:   time.Now().Unix()})
+
+	if c.RecordSound {
+		audioRecording, err := sound.RecordSound(mac, int(c.SoundRecordingDuration), *soundFile)
+		if err != nil {
+			logger.Error("Error recording sound", "error", err)
+		}
+		err = postSound(audioRecording)
+		if err != nil {
+			logger.Info("Error posting sound to bbox", "error", err)
+		}
+	}
 	err = sendFlush()
 	if err != nil {
 		logger.Info("Error sending flush", "error", err)
