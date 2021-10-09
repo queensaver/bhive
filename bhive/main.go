@@ -17,9 +17,12 @@ import (
 	"strings"
 	"time"
 
+	"github.com/queensaver/bhive/bhive/sound"
 	"github.com/queensaver/bhive/bhive/temperature"
 	"github.com/queensaver/packages/config"
+	"github.com/queensaver/packages/logger"
 	scaleStruct "github.com/queensaver/packages/scale"
+	soundStruct "github.com/queensaver/packages/sound"
 	temperastureStruct "github.com/queensaver/packages/temperature"
 )
 
@@ -32,6 +35,7 @@ var pyHx711 []byte
 var serverAddr = flag.String("server_addr", "http://192.168.233.1:8333", "HTTP server port")
 var ramDisk = flag.String("ramdisk", "/home/pi/bOS", "loccation of ramdisk to store temporary files")
 var measurements = flag.Int("num_weight_measurements", 5, "Number of scale measurements")
+var soundFile = flag.String("sound_file", "/home/pi/bOS/audio.wav", "File where to record sound samples to")
 
 func getMacAddr() (string, error) {
 	interfaces, err := net.Interfaces()
@@ -55,9 +59,17 @@ func post(req *http.Request) error {
 	defer resp.Body.Close()
 
 	if resp.Status != "200" {
-		log.Println("Got http return code ", resp.Status)
+		logger.Info("Post got unexpected return code", "http_status", resp.Status)
 	}
 	return nil
+}
+
+func sendFlush() error {
+	req, err := http.NewRequest("POST", *serverAddr+"/flush", bytes.NewBuffer([]byte{}))
+	if err != nil {
+		return err
+	}
+	return post(req)
 }
 
 func postWeight(w scaleStruct.Scale) error {
@@ -65,8 +77,11 @@ func postWeight(w scaleStruct.Scale) error {
 	if err != nil {
 		return err
 	}
-	log.Println("posting weight ", string(j))
+	logger.Debug("posting weight ", "json", string(j))
 	req, err := http.NewRequest("POST", *serverAddr+"/scale", bytes.NewBuffer(j))
+	if err != nil {
+		return (err)
+	}
 	req.Header.Set("Content-Type", "application/json")
 	return post(req)
 }
@@ -77,8 +92,26 @@ func postTemperature(t temperastureStruct.Temperature) error {
 		return err
 	}
 	req, err := http.NewRequest("POST", *serverAddr+"/temperature", bytes.NewBuffer(j))
+	if err != nil {
+		return (err)
+	}
 	req.Header.Set("Content-Type", "application/json")
-	log.Println("posting temperature", string(j))
+	logger.Debug("posting temperature", "json", string(j))
+
+	return post(req)
+}
+
+func postSound(s *soundStruct.Sound) error {
+	j, err := json.Marshal(s)
+	if err != nil {
+		return err
+	}
+	req, err := http.NewRequest("POST", *serverAddr+"/sound", bytes.NewBuffer(j))
+	if err != nil {
+		return (err)
+	}
+	req.Header.Set("Content-Type", "application/json")
+	logger.Debug("posting sound", "json", string(j))
 
 	return post(req)
 }
@@ -147,27 +180,26 @@ func main() {
 	flag.Parse()
 	mac, err := getMacAddr()
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal("could not get mac address", "error", err)
 	}
-	log.Println("MAC: ", mac)
+	logger.Debug("MAC address", "mac", mac)
 	t, err := temperature.GetTemperature(mac)
 	if err != nil {
-		log.Println("Error getting temperature: ", err)
-	} else {
-		t.Timestamp = time.Now().Unix()
-		fmt.Println("Temperature: ", t)
-		postTemperature(*t)
+		logger.Error("Error getting temperature", "error", err)
 	}
+	t.Timestamp = time.Now().Unix()
+	fmt.Println("Temperature: ", t)
+	postTemperature(*t)
 
 	err = write_python()
 	if err != nil {
-		log.Fatalln("Error writing python script: ", err)
+		logger.Fatal("Error writing python script", "error", err)
 	}
 	c, err := config.GetBHiveConfig(*serverAddr + "/config")
 	if err != nil {
-		log.Fatalln("Error getting config: ", err)
+		logger.Fatal("Error getting config", "error", err)
 	}
-	log.Println("Config received: ", c)
+	logger.Debug("Config received", "config", c)
 	var weights []float64
 	for i := 0; i < *measurements; i++ {
 		weight, err := executePython(c.ScaleReferenceUnit, c.ScaleOffset)
@@ -182,4 +214,19 @@ func main() {
 	postWeight(scaleStruct.Scale{Weight: weight,
 		BhiveId: mac,
 		Epoch:   time.Now().Unix()})
+
+	if c.RecordSound {
+		audioRecording, err := sound.RecordSound(mac, int(c.SoundRecordingDuration), *soundFile)
+		if err != nil {
+			logger.Error("Error recording sound", "error", err)
+		}
+		err = postSound(audioRecording)
+		if err != nil {
+			logger.Info("Error posting sound to bbox", "error", err)
+		}
+	}
+	err = sendFlush()
+	if err != nil {
+		logger.Info("Error sending flush", "error", err)
+	}
 }
