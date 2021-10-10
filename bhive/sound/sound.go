@@ -12,7 +12,7 @@ import (
 
 func RecordSound(mac string, duration int, file string) (*sound.Sound, error) {
 	r := &sound.Sound{BhiveId: mac, Duration: duration}
-	cmd := exec.Command("arecord", "-f", "S16_LE", "-d", fmt.Sprintf("%d", duration), "-r", "44100", "--device=\"hw:1,0\"", file)
+	cmd := exec.Command("arecord", "-f", "S16_LE", "-d", fmt.Sprintf("%d", duration), "-r", "44100", "--device=hw:1,0", file)
 	logger.Debug("Recording sound", "command", cmd)
 	err := cmd.Run()
 	if err != nil {
