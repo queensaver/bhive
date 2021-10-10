@@ -19,11 +19,15 @@ github.com/queensaver/packages/config v0.0.0-20210614040235-790e8a1cbf0d h1:xPnh
 github.com/queensaver/packages/config v0.0.0-20210614040235-790e8a1cbf0d/go.mod h1:sGtlRPJOuYNiUMfxKNPf6e46PHYY3MeYvs7ObdeCWYQ=
 github.com/queensaver/packages/config v0.0.0-20211007075916-abd9f518d7f4 h1:7VLOXnKAs0hkotjonsq2ps+l337GlJ44A7F8t+FXq7s=
 github.com/queensaver/packages/config v0.0.0-20211007075916-abd9f518d7f4/go.mod h1:VaPBiKxDjzKwA9RjjInLBhVYFolkVV9yX2qv6fmyDxM=
+github.com/queensaver/packages/config v0.0.0-20211009192843-e15a0fff039b h1:qBqa0tlr1RraTfiD3D9GTVNZJMHdCkLSYHwXi7ps4bA=
+github.com/queensaver/packages/config v0.0.0-20211009192843-e15a0fff039b/go.mod h1:VaPBiKxDjzKwA9RjjInLBhVYFolkVV9yX2qv6fmyDxM=
 github.com/queensaver/packages/logger v0.0.0-20210912093130-7f5fc5451f5c h1:lY3oPUg5oTT8hQ4Kbi+61zPuQOKAuZFN8GTIpO+cBgY=
 github.com/queensaver/packages/logger v0.0.0-20210912093130-7f5fc5451f5c/go.mod h1:dPPZNcvIv4x/BZJhPbeZzL/JK8nqOZEomy1YpYBhc0U=
 github.com/queensaver/packages/logger v0.0.0-20210924194626-eecb7227e71c/go.mod h1:qNN+/mRJF9maC1BjR+mdTLRx9N6giam6hUgB9Y0YAic=
 github.com/queensaver/packages/logger v0.0.0-20211007075916-abd9f518d7f4 h1:F4dZc8A0cCyQyjFn+VmPRdi2r8Ybk0F1Itgq8ytb93M=
 github.com/queensaver/packages/logger v0.0.0-20211007075916-abd9f518d7f4/go.mod h1:qNN+/mRJF9maC1BjR+mdTLRx9N6giam6hUgB9Y0YAic=
+github.com/queensaver/packages/logger v0.0.0-20211009192843-e15a0fff039b h1:/Y0/LqT23BDznWYDC6/YeojN1M34zwQOuvGFGUUiH7g=
+github.com/queensaver/packages/logger v0.0.0-20211009192843-e15a0fff039b/go.mod h1:qNN+/mRJF9maC1BjR+mdTLRx9N6giam6hUgB9Y0YAic=
 github.com/queensaver/packages/scale v0.0.0-20210911194541-4f46c9b28536 h1:bsTny5W5o1QPsIzzsjUg5HmeaAMHuShpHa/Sv9r8wUk=
 github.com/queensaver/packages/scale v0.0.0-20210911194541-4f46c9b28536/go.mod h1:fdE/GV62B9kodox5RlhN5dGjUiZb3H1lEKpT6Oi45QM=
 github.com/queensaver/packages/sound v0.0.0-20211001185507-0d78f34ceda8 h1:bFqMrNI1TapNsrFlQewU1/4vmJpxJ7Si9jRt7HH3etc=
