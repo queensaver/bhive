@@ -58,7 +58,7 @@ func post(req *http.Request) error {
 	}
 	defer resp.Body.Close()
 
-	if resp.Status != "200" {
+	if resp.StatusCode != 200 {
 		logger.Info("Post got unexpected return code", "http_status", resp.Status)
 	}
 	return nil
@@ -216,6 +216,7 @@ func main() {
 		Epoch:   time.Now().Unix()})
 
 	if c.RecordSound {
+		logger.Info("Recording sound")
 		audioRecording, err := sound.RecordSound(mac, int(c.SoundRecordingDuration), *soundFile)
 		if err != nil {
 			logger.Error("Error recording sound", "error", err)
