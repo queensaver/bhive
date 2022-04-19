@@ -187,7 +187,6 @@ func main() {
 	if err != nil {
 		logger.Error("Error getting temperature", "error", err)
 	}
-	t.Timestamp = time.Now().Unix()
 	fmt.Println("Temperature: ", t)
 	postTemperature(*t)
 
