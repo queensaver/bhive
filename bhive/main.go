@@ -9,7 +9,6 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"net"
 	"net/http"
 	"os/exec"
@@ -37,18 +36,25 @@ var ramDisk = flag.String("ramdisk", "/home/pi/bOS", "loccation of ramdisk to st
 var measurements = flag.Int("num_weight_measurements", 5, "Number of scale measurements")
 // var soundFile = flag.String("sound_file", "/home/pi/bOS/audio.wav", "File where to record sound samples to")
 var scaleConfigFile = flag.String("scale_config_file", "/home/pi/.queensaver_scale_config", "Scale config file")
+var scanCmd = flag.String("scan_command", "/home/pi/capture.sh", "Command to execute for a varroa scan.")
 
 func getMacAddr() (string, error) {
 	interfaces, err := net.Interfaces()
 	if err != nil {
+		logger.Error("Could not get interfaces", "error", err)
 		return "", err
 	}
-	a := interfaces[1].HardwareAddr.String()
-	if a != "" {
-		r := strings.Replace(a, ":", "", -1)
-		return r, nil
+	// find wlan0 interface
+	for _, i := range interfaces {
+		if i.Name == "wlan0" {
+			a := i.HardwareAddr.String()
+			if a != "" {
+				r := strings.Replace(a, ":", "", -1)
+				return r, nil
+			}
+		}
 	}
-	return "", nil
+	return "", fmt.Errorf("could not find wlan0 interface")
 }
 
 func post(req *http.Request) error {
@@ -191,7 +197,7 @@ func main() {
 		logger.Error("Error getting temperature", "error", err)
 	}
 	t.Timestamp = time.Now().Unix()
-	fmt.Println("Temperature: ", t)
+	logger.Debug("Temperature", "temperature", t)
 	postTemperature(*t)
 
 	err = write_python()
@@ -209,7 +215,7 @@ func main() {
 	conf, err := os.ReadFile(*scaleConfigFile)
 
 	if err != nil {
-		logger.Fatal("Error reading config file", "error", err)
+		logger.Fatal("Error reading scale config file", "error", err)
 	}
 
 	type ScaleConfig struct {
@@ -227,13 +233,14 @@ func main() {
 	for i := 0; i < *measurements; i++ {
 		weight, err := executePython(sc.Scale, sc.Offset)
 		if err != nil {
-			log.Fatalln("Error executing python script: ", err)
+			logger.Fatal("Error executing python script: ", "error", err)
 		}
 		weights = append(weights, weight)
 	}
 	sort.Float64s(weights)
 	medianPosition := len(weights) / 2
 	weight := weights[medianPosition] // We ignore that an even number of measurements would not calculate the exact median value.
+	logger.Debug("Weight", "weight", weight)
 	postWeight(scaleStruct.Scale{Weight: weight,
 		BhiveId: mac,
 		Epoch:   time.Now().Unix()})
@@ -251,6 +258,15 @@ func main() {
 		}
 	}
 	*/
+
+
+	cmd := exec.Command(*scanCmd)
+	err = cmd.Run()
+  
+	if err != nil {
+	  logger.Error("Scan command failed", "error", err)
+	}
+
 	err = sendFlush()
 	if err != nil {
 		logger.Info("Error sending flush", "error", err)
