@@ -4,6 +4,7 @@ import (
 	"bytes"
 	_ "embed"
 	"encoding/json"
+	"os"
 	"flag"
 	"fmt"
 	"io"
@@ -17,12 +18,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/queensaver/bhive/bhive/sound"
+	// "github.com/queensaver/bhive/bhive/sound"
 	"github.com/queensaver/bhive/bhive/temperature"
-	"github.com/queensaver/packages/config"
 	"github.com/queensaver/packages/logger"
 	scaleStruct "github.com/queensaver/packages/scale"
-	soundStruct "github.com/queensaver/packages/sound"
+	// soundStruct "github.com/queensaver/packages/sound"
 	temperastureStruct "github.com/queensaver/packages/temperature"
 )
 
@@ -35,7 +35,8 @@ var pyHx711 []byte
 var serverAddr = flag.String("server_addr", "http://192.168.233.1:8333", "HTTP server port")
 var ramDisk = flag.String("ramdisk", "/home/pi/bOS", "loccation of ramdisk to store temporary files")
 var measurements = flag.Int("num_weight_measurements", 5, "Number of scale measurements")
-var soundFile = flag.String("sound_file", "/home/pi/bOS/audio.wav", "File where to record sound samples to")
+// var soundFile = flag.String("sound_file", "/home/pi/bOS/audio.wav", "File where to record sound samples to")
+var scaleConfigFile = flag.String("scale_config_file", "/home/pi/.queensaver_scale_config", "Scale config file")
 
 func getMacAddr() (string, error) {
 	interfaces, err := net.Interfaces()
@@ -101,6 +102,7 @@ func postTemperature(t temperastureStruct.Temperature) error {
 	return post(req)
 }
 
+/*
 func postSound(s *soundStruct.Sound) error {
 	j, err := json.Marshal(s)
 	if err != nil {
@@ -115,6 +117,7 @@ func postSound(s *soundStruct.Sound) error {
 
 	return post(req)
 }
+*/
 
 // writes out a python file to the ramdisk.
 // this is so that we can run the python script afterwards.
@@ -195,14 +198,34 @@ func main() {
 	if err != nil {
 		logger.Fatal("Error writing python script", "error", err)
 	}
+	/*
 	c, err := config.GetBHiveConfig(*serverAddr + "/config")
 	if err != nil {
 		logger.Fatal("Error getting config", "error", err)
 	}
 	logger.Debug("Config received", "config", c)
+	*/
+	// read the json config from the config file in /home/pi/.queensaver_scale_config
+	conf, err := os.ReadFile(*scaleConfigFile)
+
+	if err != nil {
+		logger.Fatal("Error reading config file", "error", err)
+	}
+
+	type ScaleConfig struct {
+		Offset float64 `json:"offset"`
+		Scale float64 `json:"scale"`
+	}
+
+	sc := ScaleConfig{}
+	err = json.Unmarshal(conf, &sc)
+	if err != nil {
+		logger.Fatal("Error unmarshalling config file", "error", err)
+	}
+
 	var weights []float64
 	for i := 0; i < *measurements; i++ {
-		weight, err := executePython(c.ScaleReferenceUnit, c.ScaleOffset)
+		weight, err := executePython(sc.Scale, sc.Offset)
 		if err != nil {
 			log.Fatalln("Error executing python script: ", err)
 		}
@@ -215,6 +238,7 @@ func main() {
 		BhiveId: mac,
 		Epoch:   time.Now().Unix()})
 
+		/*
 	if c.RecordSound {
 		logger.Info("Recording sound")
 		audioRecording, err := sound.RecordSound(mac, int(c.SoundRecordingDuration), *soundFile)
@@ -226,6 +250,7 @@ func main() {
 			logger.Info("Error posting sound to bbox", "error", err)
 		}
 	}
+	*/
 	err = sendFlush()
 	if err != nil {
 		logger.Info("Error sending flush", "error", err)
