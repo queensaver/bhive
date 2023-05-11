@@ -177,7 +177,8 @@ func executePython(reference_unit float64, offset float64) (float64, error) {
 	if err := cmd.Wait(); err != nil {
 		return 0, err
 	}
-	fmt.Println("Python StdErr Output: ", string(stderrBuf))
+	fmt.Println("Python StdErr: ", string(stderrBuf))
+	fmt.Println("Python StdOut: ", string(buf))
 	weight, err := strconv.ParseFloat(string(buf), 64)
 	if err != nil {
 		return 0, err
@@ -196,7 +197,7 @@ func main() {
 	if err != nil {
 		logger.Error("Error getting temperature", "error", err)
 	}
-	t.Timestamp = time.Now().Unix()
+	// t.Timestamp = time.Now().Unix()
 	logger.Debug("Temperature", "temperature", t)
 	postTemperature(*t)
 
